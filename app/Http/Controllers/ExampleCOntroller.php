@@ -12,6 +12,6 @@ class ExampleCOntroller extends Controller
         return view("homepage", ["allUsers" => $allUsers, "name" => $userName]);
     }
     public function aboutPage(){
-        return "<h1>About Page</h1><a href='/'>Go to Home Page</a>";
+        return view('single-post');
     }
 }
