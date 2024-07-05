@@ -8,6 +8,26 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function showCorrectHomePage(){
+        if(auth()->check()){
+            return view('homepage-feed');
+        } else {
+            return view('homepage');
+        }
+    }
+    public function login(Request $request){
+        $incomingFields = $request->validate([
+            'loginusername' => 'required',
+            'loginpassword' => 'required'
+        ]);
+        if(auth()->attempt(['username' => $incomingFields['loginusername'], 'password'=> $incomingFields['loginpassword']])){
+            $request->session()->regenrate();
+            return 'Congrats!';
+        } else {
+            return 'SOrry!!!';
+        }
+    }
+    
     public function register(Request $request){
         $incomingFields = $request->validate([
             'username' => ['required', 'min:3', 'max:20', Rule::unique('users','username')],
