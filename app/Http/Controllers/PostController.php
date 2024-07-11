@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     //
     public function viewSinglePost(Post $post){
+        $ourHtml = Str::markdown($post->body);
+        $post['body'] = $ourHtml;
         return view('single-post', ["post" => $post]);
     }
     public function storeNewPost(Request $request){
