@@ -26,6 +26,7 @@ class PostController extends Controller
         return redirect("/post/{$newPost->id}")->with('success', 'New post added successfully!!');
     }
     public function showCreateForm(){
+        
         return view('create-post');
     }
 }

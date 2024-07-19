@@ -16,12 +16,15 @@ use App\http\Controllers\PostController;
 */
 
 //User related routes
-Route::get('/',[UserController::class,'showCorrectHomePage']);
+Route::get('/',[UserController::class,'showCorrectHomePage'])->name('login');
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
 
 //Blog post related routes
-Route::get('/create-post',[PostController::class, 'showCreateForm']);
+Route::get('/create-post',[PostController::class, 'showCreateForm'])->middleware('auth');
 Route::get('/post/{post}',[PostController::class, 'viewSinglePost']);
 Route::post('/create-post',[PostController::class, 'storeNewPost']);
+
+//Profile  related routes
+Route::get('/profile/{user:username}',[UserController::class, 'profile']);
