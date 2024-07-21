@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     //
+    public function delete(Post $post){
+        if(auth()->user()->cannot('delete', $post)){
+            return 'You are not allowed to do this';
+        }
+        $post->delete();
+
+        return redirect('/profile/' . auth()->user()->username)->with('success', 'Post successfully deleted');
+    }
     public function viewSinglePost(Post $post){
         $ourHtml = Str::markdown($post->body);
         $post['body'] = $ourHtml;
