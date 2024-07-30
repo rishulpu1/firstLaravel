@@ -15,6 +15,10 @@ use App\http\Controllers\PostController;
 |
 */
 
+Route::get('/admins-only', function(){
+    return "Only admins can visit this page";
+})->middleware('can:visitAdminPages');
+
 //User related routes
 Route::get('/',[UserController::class,'showCorrectHomePage'])->name('login');
 Route::post('/register', [UserController::class, 'register']);
